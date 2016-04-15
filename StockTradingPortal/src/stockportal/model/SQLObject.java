@@ -6,7 +6,7 @@ public class SQLObject {
 
 	/** The password for the MySQL account (or empty for anonymous) */
 	protected static String password = "VE11IiP&";
-
+	
 	/** The name of the computer running MySQL */
 	protected static String serverName = "localhost";
 

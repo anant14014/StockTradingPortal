@@ -14,16 +14,24 @@ public class UsersResultsController {
 	@FXML
 	private TableView<User> userTable;
 	@FXML
+	private TableColumn<User, Integer> idColumn;
+	@FXML
 	private TableColumn<User, String> nameColumn;
 	@FXML
-	private TableColumn<User, Integer> valueColumn;
+	private TableColumn<User, String> emailColumn;
+	@FXML
+	private TableColumn<User, String> mobileColumn;
+	@FXML
+	private TableColumn<User, Hyperlink> linkColumn;
 	
 	private MainApp mainApp;
 	
 	@FXML
     void initialize() {
+		idColumn.setCellValueFactory(cellData -> cellData.getValue().customerIdProperty().asObject());
 		nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-		valueColumn.setCellValueFactory(cellData -> cellData.getValue().valueProperty().asObject());
+		emailColumn.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
+		mobileColumn.setCellValueFactory(cellData -> cellData.getValue().mobileProperty());
     }
 	
 	public void setMainApp(MainApp mainApp) {
