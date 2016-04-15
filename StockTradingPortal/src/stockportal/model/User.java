@@ -13,56 +13,56 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class Stock extends SQLObject{
+public class User extends SQLObject{
 	private StringProperty name;
 	private IntegerProperty value;
 	
-	public Stock(String name, int value) {
+	public User(String name, int value) {
 		super();
 		this.name = new SimpleStringProperty(name);
 		this.value = new SimpleIntegerProperty(value);
 	}
 	
-	public Stock() {
+	public User() {
 		this("", -1);
 	}
 	
-	public static ObservableList<Stock> findAll() throws SQLException {
-		ObservableList<Stock> stocks = FXCollections.observableArrayList();
-		String selectQuery = "SELECT * FROM stock";
+	public static ObservableList<User> findAll() throws SQLException {
+		ObservableList<User> users = FXCollections.observableArrayList();
+		String selectQuery = "SELECT * FROM user";
 		try {
 			Connection connection = DriverManager.getConnection("jdbc:mysql://" + serverName + ":" + portNumber + "/" + dbName, userName, password);
 			PreparedStatement pStatement = connection.prepareStatement(selectQuery);
 		    ResultSet resultSet = pStatement.executeQuery();
 		    while (resultSet.next()) {
-		    	stocks.add(createStock(resultSet));
+		    	users.add(createUser(resultSet));
 		    }
 		} catch (SQLException sqlex) {
 	      throw sqlex;
 	   }
-	   return stocks;
+	   return users;
 	}
 	
-	public static ObservableList<Stock> findByName(String name) throws SQLException {
-		ObservableList<Stock> stocks = FXCollections.observableArrayList();
-		String selectQuery = "SELECT * FROM stock WHERE name LIKE ?";
+	public static ObservableList<User> findByName(String name) throws SQLException {
+		ObservableList<User> users = FXCollections.observableArrayList();
+		String selectQuery = "SELECT * FROM user WHERE name LIKE ?";
 		try {
 			Connection connection = DriverManager.getConnection("jdbc:mysql://" + serverName + ":" + portNumber + "/" + dbName, userName, password);
 			PreparedStatement pStatement = connection.prepareStatement(selectQuery);
-			pStatement.setString(1, "%" + name + "%");
+			pStatement.setString(1, name + '%');
 		    ResultSet resultSet = pStatement.executeQuery();
 		    while (resultSet.next()) {
-		    	stocks.add(createStock(resultSet));
+		    	users.add(createUser(resultSet));
 		    }
 		} catch (SQLException sqlex) {
 	      throw sqlex;
 	   }
-	   return stocks;
+	   return users;
 	}
 	
-	public static ObservableList<Stock> findByValue(int from, int to) throws SQLException {
-		ObservableList<Stock> stocks = FXCollections.observableArrayList();
-		String selectQuery = "SELECT * FROM stock WHERE value >= ? AND value <= ?";
+	public static ObservableList<User> findByValue(int from, int to) throws SQLException {
+		ObservableList<User> users = FXCollections.observableArrayList();
+		String selectQuery = "SELECT * FROM user WHERE value >= ? AND value <= ?";
 		try {
 			Connection connection = DriverManager.getConnection("jdbc:mysql://" + serverName + ":" + portNumber + "/" + dbName, userName, password);
 			PreparedStatement pStatement = connection.prepareStatement(selectQuery);
@@ -70,17 +70,17 @@ public class Stock extends SQLObject{
 			pStatement.setInt(2, to);
 		    ResultSet resultSet = pStatement.executeQuery();
 		    while (resultSet.next()) {
-		    	stocks.add(createStock(resultSet));
+		    	users.add(createUser(resultSet));
 		    }
 		} catch (SQLException sqlex) {
 	      throw sqlex;
 	   }
-	   return stocks;
+	   return users;
 	}
 	
-	public static ObservableList<Stock> findByNameAndValue(String name, int from, int to) throws SQLException {
-		ObservableList<Stock> stocks = FXCollections.observableArrayList();
-		String selectQuery = "SELECT * FROM stock WHERE name LIKE ? AND value >= ? AND value <= ?";
+	public static ObservableList<User> findByNameAndValue(String name, int from, int to) throws SQLException {
+		ObservableList<User> users = FXCollections.observableArrayList();
+		String selectQuery = "SELECT * FROM user WHERE name LIKE ? AND value >= ? AND value <= ?";
 		try {
 			Connection connection = DriverManager.getConnection("jdbc:mysql://" + serverName + ":" + portNumber + "/" + dbName, userName, password);
 			PreparedStatement pStatement = connection.prepareStatement(selectQuery);
@@ -89,19 +89,19 @@ public class Stock extends SQLObject{
 			pStatement.setInt(3, to);
 		    ResultSet resultSet = pStatement.executeQuery();
 		    while (resultSet.next()) {
-		    	stocks.add(createStock(resultSet));
+		    	users.add(createUser(resultSet));
 		    }
 		} catch (SQLException sqlex) {
 	      throw sqlex;
 	   }
-	   return stocks;
+	   return users;
 	}
 
-	private static Stock createStock(ResultSet resultSet) throws SQLException {
-		Stock stock = new Stock();
-		stock.setName(resultSet.getString("name"));
-		stock.setValue(resultSet.getInt("value"));
-		return stock;
+	private static User createUser(ResultSet resultSet) throws SQLException {
+		User user = new User();
+		user.setName(resultSet.getString("name"));
+		user.setValue(resultSet.getInt("value"));
+		return user;
 	}
 	
 	public final StringProperty nameProperty() {

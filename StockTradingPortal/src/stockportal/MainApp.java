@@ -9,9 +9,16 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import stockportal.model.Account;
 import stockportal.model.Stock;
+import stockportal.model.User;
+import stockportal.view.AccountsFilterController;
+import stockportal.view.AccountsResultsController;
+import stockportal.view.QueryHomeController;
 import stockportal.view.StocksFilterController;
 import stockportal.view.StocksResultsController;
+import stockportal.view.UsersFilterController;
+import stockportal.view.UsersResultsController;
 
 public class MainApp extends Application {
 
@@ -24,7 +31,7 @@ public class MainApp extends Application {
         this.primaryStage.setTitle("Stock Trading Portal");
 
         initRootLayout();
-        showStocksFilter();
+        showQueryHome();
     }
 
     /**
@@ -60,6 +67,23 @@ public class MainApp extends Application {
         }
     }
     
+    public void showQueryHome() {
+        try {
+            // Load home.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/QueryHome.fxml"));
+            AnchorPane queryHome = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(queryHome);
+            
+            QueryHomeController controller = loader.getController();
+            controller.setMainApp(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public void showStocksFilter() {
         try {
             // Load home.
@@ -71,6 +95,40 @@ public class MainApp extends Application {
             rootLayout.setCenter(stocksFilter);
             
             StocksFilterController controller = loader.getController();
+            controller.setMainApp(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void showUsersFilter() {
+        try {
+            // Load home.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/UsersFilter.fxml"));
+            AnchorPane usersFilter = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(usersFilter);
+            
+            UsersFilterController controller = loader.getController();
+            controller.setMainApp(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void showAccountsFilter() {
+        try {
+            // Load home.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/AccountsFilter.fxml"));
+            AnchorPane accountsFilter = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(accountsFilter);
+            
+            AccountsFilterController controller = loader.getController();
             controller.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
@@ -90,6 +148,42 @@ public class MainApp extends Application {
             StocksResultsController controller = loader.getController();
             controller.setMainApp(this);
             controller.showResults(stocks);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void showUsersResults(ObservableList<User> users) {
+        try {
+            // Load home.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/UsersResults.fxml"));
+            AnchorPane results = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(results);
+            
+            UsersResultsController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.showResults(users);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void showAccountsResults(ObservableList<Account> accounts) {
+        try {
+            // Load home.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/AccountsResults.fxml"));
+            AnchorPane results = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(results);
+            
+            AccountsResultsController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.showResults(accounts);
         } catch (IOException e) {
             e.printStackTrace();
         }
