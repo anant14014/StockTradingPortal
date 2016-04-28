@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import stockportal.MainApp;
 import stockportal.model.Account;
-import stockportal.model.User;
 
 public class AccountsResultsController {
 	

@@ -68,7 +68,7 @@ public class Account extends SQLObject{
 	   return accounts;
 	}
 	
-	public static Account findByAccountNumber(int accountNumber) throws SQLException {
+	public static Account findOneByAccountNumber(int accountNumber) throws SQLException {
 		String selectQuery = "SELECT * FROM account WHERE accountNumber = ?";
 		Account account;
 		try {
@@ -81,6 +81,23 @@ public class Account extends SQLObject{
 	      throw sqlex;
 	   }
 	   return account;
+	}
+	
+	public static ObservableList<Account> findByAccountNumber(int accountNumber) throws SQLException {
+		ObservableList<Account> accounts = FXCollections.observableArrayList();
+		String selectQuery = "SELECT * FROM account WHERE accountNumber = ?";
+		try {
+			Connection connection = DriverManager.getConnection("jdbc:mysql://" + serverName + ":" + portNumber + "/" + dbName, userName, password);
+			PreparedStatement pStatement = connection.prepareStatement(selectQuery);
+			pStatement.setInt(1, accountNumber);
+		    ResultSet resultSet = pStatement.executeQuery();
+		    while (resultSet.next()) {
+		    	accounts.add(createAccount(resultSet));
+		    }
+		} catch (SQLException sqlex) {
+	      throw sqlex;
+	   }
+	   return accounts;
 	}
 	
 	public static ObservableList<Account> findByType(String type) throws SQLException {
