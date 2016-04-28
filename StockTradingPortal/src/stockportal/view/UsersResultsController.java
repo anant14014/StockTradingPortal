@@ -32,6 +32,7 @@ public class UsersResultsController {
 		nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
 		emailColumn.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
 		mobileColumn.setCellValueFactory(cellData -> cellData.getValue().mobileProperty());
+		linkColumn.setCellValueFactory(cellData -> cellData.getValue().buttonProperty());
     }
 	
 	public void setMainApp(MainApp mainApp) {
@@ -39,6 +40,9 @@ public class UsersResultsController {
 	}
 	
 	public void showResults(ObservableList<User> results){
+		for (User user : results) {
+			user.mainApp = this.mainApp;
+		}
 		userTable.setItems(results);
 	}
 	

@@ -6,7 +6,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import stockportal.MainApp;
-import stockportal.model.Stock;
 import stockportal.model.User;
 
 public class UsersFilterController {

@@ -1,6 +1,7 @@
 package stockportal;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javafx.application.Application;
 import javafx.collections.ObservableList;
@@ -15,6 +16,7 @@ import stockportal.model.User;
 import stockportal.view.AccountsFilterController;
 import stockportal.view.AccountsResultsController;
 import stockportal.view.QueryHomeController;
+import stockportal.view.SingleAccountController;
 import stockportal.view.StocksFilterController;
 import stockportal.view.StocksResultsController;
 import stockportal.view.UsersFilterController;
@@ -184,6 +186,24 @@ public class MainApp extends Application {
             AccountsResultsController controller = loader.getController();
             controller.setMainApp(this);
             controller.showResults(accounts);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void showSingleAccount(Account account) throws SQLException {
+        try {
+            // Load home.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/SingleAccount.fxml"));
+            AnchorPane results = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(results);
+            
+            SingleAccountController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setAccount(account);
         } catch (IOException e) {
             e.printStackTrace();
         }

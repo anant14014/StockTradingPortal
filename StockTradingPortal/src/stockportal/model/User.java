@@ -7,11 +7,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Hyperlink;
+import stockportal.MainApp;
 
 public class User extends SQLObject{
 	private IntegerProperty customerId;
@@ -19,7 +25,9 @@ public class User extends SQLObject{
 	private StringProperty dob;
 	private StringProperty email;
 	private StringProperty mobile;
-
+	private ObjectProperty<Hyperlink> button;
+	public MainApp mainApp;
+	
 	public User(int customerId, String name, String dob, String email, String mobile) {
 		super();
 		this.customerId = new SimpleIntegerProperty(customerId);
@@ -27,6 +35,20 @@ public class User extends SQLObject{
 		this.dob = new SimpleStringProperty(dob);
 		this.email = new SimpleStringProperty(email);
 		this.mobile = new SimpleStringProperty(mobile);
+		button = new SimpleObjectProperty<Hyperlink>(new Hyperlink());
+		button.get().setText("Accounts");
+		button.get().setOnAction(new EventHandler<ActionEvent>() {
+		    @Override
+		    public void handle(ActionEvent e) {
+		    	try {
+					ObservableList<Account> accounts = Account.findByCustomerId(getCustomerId());
+					mainApp.showAccountsResults(accounts);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		    }
+		});
 	}
 	
 	public User() {
@@ -102,7 +124,7 @@ public class User extends SQLObject{
 	
 	public static ObservableList<User> findByBalance(int balanceFrom, int balanceTo) throws SQLException {
 		ObservableList<User> users = FXCollections.observableArrayList();
-		String selectQuery = "SELECT customerId, name, dob, email, mobile, sum(balance) FROM customer NATURAL JOIN account GROUP BY customerId having sum(balance) >= ? AND sum(balance) <= ?";
+		String selectQuery = "SELECT customerId, name, dob, email, mobile, sum(balance) FROM customer NATURAL JOIN account GROUP BY customerId HAVING sum(balance) >= ? AND sum(balance) <= ?";
 		try {
 			Connection connection = DriverManager.getConnection("jdbc:mysql://" + serverName + ":" + portNumber + "/" + dbName, userName, password);
 			PreparedStatement pStatement = connection.prepareStatement(selectQuery);
@@ -201,6 +223,21 @@ public class User extends SQLObject{
 	public final void setMobile(final String mobile) {
 		this.mobileProperty().set(mobile);
 	}
+
+	public final ObjectProperty<Hyperlink> buttonProperty() {
+		return this.button;
+	}
+	
+
+	public final Hyperlink getButton() {
+		return this.buttonProperty().get();
+	}
+	
+
+	public final void setButton(final Hyperlink button) {
+		this.buttonProperty().set(button);
+	}
+	
 	
 
 }

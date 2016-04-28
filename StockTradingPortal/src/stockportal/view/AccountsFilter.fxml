@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -9,48 +11,65 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="stockportal.view.AccountsFilterController">
    <children>
       <SplitPane dividerPositions="0.25301204819277107" layoutX="170.0" layoutY="150.0" orientation="VERTICAL" prefHeight="500.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Text layoutX="164.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Query Home" textAlignment="CENTER" AnchorPane.bottomAnchor="42.953125" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="163.8359375" AnchorPane.topAnchor="41.203125">
+                  <Text layoutX="202.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Accounts" textAlignment="CENTER" AnchorPane.bottomAnchor="42.953125" AnchorPane.leftAnchor="202.0" AnchorPane.rightAnchor="201.609375" AnchorPane.topAnchor="41.203125">
                      <font>
                         <Font size="48.0" />
                      </font>
                   </Text>
+                  <Button fx:id="backButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleBack" text="Back" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <GridPane layoutX="199.0" layoutY="67.0" prefHeight="148.0" prefWidth="100.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="60.0">
+                  <GridPane layoutX="199.0" layoutY="67.0" prefHeight="148.0" prefWidth="144.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="60.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="180.0" text="Users" GridPane.halignment="CENTER">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Button>
-                        <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="180.0" text="Accounts" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Button>
-                        <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="180.0" text="Stocks" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Button>
+                        <Label text="Account Number" />
+                        <Label text="Total Account Balance" GridPane.rowIndex="3" />
+                        <TextField fx:id="accountNumberField" GridPane.columnIndex="1" />
+                        <GridPane GridPane.columnIndex="1" GridPane.rowIndex="3">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="From" />
+                              <Label text="To" GridPane.rowIndex="1" />
+                              <TextField fx:id="balanceFromField" GridPane.columnIndex="1" />
+                              <TextField fx:id="balanceToField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                           </children>
+                        </GridPane>
+                        <Label text="Type" GridPane.rowIndex="1" />
+                        <Label text="CustomerId" GridPane.rowIndex="2" />
+                        <TextField fx:id="typeField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="customerIdField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
+                  <Button fx:id="submitButton" layoutX="250.0" layoutY="365.0" mnemonicParsing="false" onAction="#handleSubmit" prefHeight="25.0" prefWidth="98.0" text="Submit" AnchorPane.topAnchor="365.0" />
+                  <Label fx:id="validationLabel" layoutX="285.0" layoutY="413.0" textFill="RED">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
         </items>

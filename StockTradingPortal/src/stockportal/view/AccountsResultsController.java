@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import stockportal.MainApp;
 import stockportal.model.Account;
+import stockportal.model.User;
 
 public class AccountsResultsController {
 	
@@ -12,18 +13,27 @@ public class AccountsResultsController {
 	private Button backButton;
 	
 	@FXML
-	private TableView<Account> accountTable;
+	private TableView<Account> accountsTable;
 	@FXML
-	private TableColumn<Account, String> nameColumn;
+	private TableColumn<Account, Integer> accountNumberColumn;
 	@FXML
-	private TableColumn<Account, Integer> valueColumn;
+	private TableColumn<Account, String> typeColumn;
+	@FXML
+	private TableColumn<Account, Integer> customerIdColumn;
+	@FXML
+	private TableColumn<Account, Integer> balanceColumn;
+	@FXML
+	private TableColumn<Account, Hyperlink> linkColumn;
 	
 	private MainApp mainApp;
 	
 	@FXML
     void initialize() {
-		nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-		valueColumn.setCellValueFactory(cellData -> cellData.getValue().valueProperty().asObject());
+		customerIdColumn.setCellValueFactory(cellData -> cellData.getValue().customerIdProperty().asObject());
+		typeColumn.setCellValueFactory(cellData -> cellData.getValue().typeProperty());
+		accountNumberColumn.setCellValueFactory(cellData -> cellData.getValue().accountNumberProperty().asObject());
+		balanceColumn.setCellValueFactory(cellData -> cellData.getValue().balanceProperty().asObject());
+		linkColumn.setCellValueFactory(cellData -> cellData.getValue().buttonProperty());
     }
 	
 	public void setMainApp(MainApp mainApp) {
@@ -31,7 +41,10 @@ public class AccountsResultsController {
 	}
 	
 	public void showResults(ObservableList<Account> results){
-		accountTable.setItems(results);
+		for (Account account : results) {
+			account.mainApp = this.mainApp;
+		}
+		accountsTable.setItems(results);
 	}
 	
 	public void handleBack() {

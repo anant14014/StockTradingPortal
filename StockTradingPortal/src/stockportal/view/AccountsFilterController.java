@@ -11,11 +11,18 @@ import stockportal.model.Account;
 public class AccountsFilterController {
 	
 	@FXML
-	private TextField nameField;
+	private TextField accountNumberField;
 	@FXML
-	private TextField valueToField;
+	private TextField typeField;
 	@FXML
-	private TextField valueFromField;
+	private TextField customerIdField;
+	@FXML
+	private TextField balanceToField;
+	@FXML
+	private TextField balanceFromField;
+	
+	@FXML
+	private Label validationLabel;
 	
 	@FXML
 	private Button submitButton;
@@ -34,12 +41,46 @@ public class AccountsFilterController {
 	}
 	
 	public void handleSubmit() throws SQLException {
-		ObservableList<Account> accounts = Account.findAll();
-		mainApp.showAccountsResults(accounts);
+		ObservableList<Account> accounts = null;
+		
+		String accountNumber = accountNumberField.getText();
+		String type = typeField.getText();
+		String customerId = customerIdField.getText();
+		String balanceFromString = balanceFromField.getText();
+		String balanceToString = balanceToField.getText();
+		
+		int sum = 0;
+		if (!accountNumber.isEmpty()) {
+			accounts.add(Account.findByAccountNumber(Integer.parseInt(accountNumber)));
+			sum++;
+		}
+		if (!type.isEmpty()) {
+			accounts = Account.findByType(type);
+			sum++;
+		}
+		if (!customerId.isEmpty()) {
+			accounts = Account.findByCustomerId(Integer.parseInt(customerId));
+			sum++;
+		}
+		if (!balanceFromString.isEmpty() && !balanceToString.isEmpty()) {
+			accounts = Account.findByBalance(Integer.parseInt(balanceFromString), Integer.parseInt(balanceToString));
+			sum++;
+		}
+		if (sum > 1) {
+			validationLabel.setText("Please enter only 1 filter!");
+		}
+		if (sum == 0) {
+			accounts = Account.findAll();
+		}
+		if (accounts != null) {
+			mainApp.showAccountsResults(accounts);
+		}
 	}
 	
 	public void handleBack() {
 		mainApp.showQueryHome();
 	}
+	
+	
 	
 }
