@@ -33,4 +33,8 @@ public class QueryHomeController {
 		mainApp.showUsersFilter();
 	}
 	
+	public void handleListings() {
+		mainApp.showListingsFilter();
+	}
+	
 }

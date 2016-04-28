@@ -11,10 +11,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import stockportal.model.Account;
+import stockportal.model.Listing;
 import stockportal.model.Stock;
 import stockportal.model.User;
 import stockportal.view.AccountsFilterController;
 import stockportal.view.AccountsResultsController;
+import stockportal.view.ListingsFilterController;
+import stockportal.view.ListingsResultsController;
 import stockportal.view.QueryHomeController;
 import stockportal.view.SingleAccountController;
 import stockportal.view.StocksFilterController;
@@ -137,6 +140,23 @@ public class MainApp extends Application {
         }
     }
     
+    public void showListingsFilter() {
+    	try {
+    		// Load home.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/ListingsFilter.fxml"));
+            AnchorPane listingsFilter = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(listingsFilter);
+            
+            ListingsFilterController controller = loader.getController();
+            controller.setMainApp(this);
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
+    }
+    
     public void showStocksResults(ObservableList<Stock> stocks) {
         try {
             // Load home.
@@ -186,6 +206,24 @@ public class MainApp extends Application {
             AccountsResultsController controller = loader.getController();
             controller.setMainApp(this);
             controller.showResults(accounts);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void showListingsResults(ObservableList<Listing> listings) {
+        try {
+            // Load home.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/ListingsResults.fxml"));
+            AnchorPane results = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(results);
+            
+            ListingsResultsController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.showResults(listings);
         } catch (IOException e) {
             e.printStackTrace();
         }
