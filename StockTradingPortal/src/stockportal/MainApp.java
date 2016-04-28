@@ -16,12 +16,15 @@ import stockportal.model.Stock;
 import stockportal.model.User;
 import stockportal.view.AccountsFilterController;
 import stockportal.view.AccountsResultsController;
+import stockportal.view.AddStockController;
 import stockportal.view.ListingsFilterController;
 import stockportal.view.ListingsResultsController;
 import stockportal.view.QueryHomeController;
 import stockportal.view.SingleAccountController;
+import stockportal.view.StockHomeController;
 import stockportal.view.StocksFilterController;
 import stockportal.view.StocksResultsController;
+import stockportal.view.UpdateStockController;
 import stockportal.view.UsersFilterController;
 import stockportal.view.UsersResultsController;
 
@@ -156,6 +159,58 @@ public class MainApp extends Application {
     		e.printStackTrace();
     	}
     }
+    
+    public void showStockHome() {
+        try {
+            // Load home.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/StockHome.fxml"));
+            AnchorPane queryHome = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(queryHome);
+            
+            StockHomeController controller = loader.getController();
+            controller.setMainApp(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void showStocksAdd() {
+    	try {
+            // Load home.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/AddStock.fxml"));
+            AnchorPane queryHome = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(queryHome);
+            
+            AddStockController controller = loader.getController();
+            controller.setMainApp(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void showStocksUpdate() {
+    	try {
+            // Load home.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/UpdateStock.fxml"));
+            AnchorPane queryHome = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(queryHome);
+            
+            UpdateStockController controller = loader.getController();
+            controller.setMainApp(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+ 
     
     public void showStocksResults(ObservableList<Stock> stocks) {
         try {

@@ -24,7 +24,7 @@ public class QueryHomeController {
 	}
 	
 	public void handleStocks() {
-		mainApp.showStocksFilter();
+		mainApp.showStockHome();
 	}
 	public void handleAccounts() {
 		mainApp.showAccountsFilter();

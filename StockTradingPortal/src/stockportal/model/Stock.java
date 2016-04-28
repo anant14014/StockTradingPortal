@@ -99,6 +99,40 @@ public class Stock extends SQLObject{
 	   return stocks;
 	}
 	
+	public static int AddStock(String name, int value) throws SQLException {
+		int numRowsChanged;
+		ObservableList<Stock> stocks = FXCollections.observableArrayList();
+		String selectQuery = "INSERT INTO stock VALUES(?, ?)";
+		try {
+			Connection connection = DriverManager.getConnection("jdbc:mysql://" + serverName + ":" + portNumber + "/" + dbName, userName, password);
+			PreparedStatement pStatement = connection.prepareStatement(selectQuery);
+			pStatement.setString(1, name);
+			pStatement.setInt(2, value);
+		    numRowsChanged = pStatement.executeUpdate();
+		    
+		} catch (SQLException sqlex) {
+	      throw sqlex;
+	   }
+	   return numRowsChanged;
+	}
+	
+	public static int UpdateStock(String name, int value) throws SQLException {
+		int numRowsChanged;
+		ObservableList<Stock> stocks = FXCollections.observableArrayList();
+		String selectQuery = "UPDATE stock SET value = ? WHERE name = ?";
+		try {
+			Connection connection = DriverManager.getConnection("jdbc:mysql://" + serverName + ":" + portNumber + "/" + dbName, userName, password);
+			PreparedStatement pStatement = connection.prepareStatement(selectQuery);
+			pStatement.setInt(1, value);
+			pStatement.setString(2, name);
+		    numRowsChanged = pStatement.executeUpdate();
+		    
+		} catch (SQLException sqlex) {
+	      throw sqlex;
+	   }
+	   return numRowsChanged;
+	}
+	
 	public static ObservableList<Stock> findByAccount(int accountNumber) throws SQLException {
 		ObservableList<Stock> stocks = FXCollections.observableArrayList();
 		String selectQuery = "SELECT name, value, quantity FROM has_stock, stock WHERE has_stock.stockName = stock.name AND accountNumber = ?";

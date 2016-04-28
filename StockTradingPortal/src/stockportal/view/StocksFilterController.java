@@ -63,7 +63,7 @@ public class StocksFilterController {
 	}
 	
 	public void handleBack() {
-		mainApp.showQueryHome();
+		mainApp.showStockHome();
 	}
 	
 }
