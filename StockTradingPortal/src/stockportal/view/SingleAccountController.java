@@ -39,7 +39,7 @@ public class SingleAccountController {
     void initialize() {
 		nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
 		valueColumn.setCellValueFactory(cellData -> cellData.getValue().valueProperty().asObject());
-		valueColumn.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asObject());
+		quantityColumn.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asObject());
     }
 	
 	public void setMainApp(MainApp mainApp) {
@@ -59,7 +59,7 @@ public class SingleAccountController {
 	
 	public void handleBack() {
 		// gotta change this
-		mainApp.showUsersFilter();
+		mainApp.showAccountsFilter();
 	}
 	
 }

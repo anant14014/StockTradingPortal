@@ -101,7 +101,7 @@ public class Stock extends SQLObject{
 	
 	public static ObservableList<Stock> findByAccount(int accountNumber) throws SQLException {
 		ObservableList<Stock> stocks = FXCollections.observableArrayList();
-		String selectQuery = "SELECT name, value, quantity FROM has_stock, stock, account WHERE has_stock.stockName = stock.name AND account.accountNumber = ?";
+		String selectQuery = "SELECT name, value, quantity FROM has_stock, stock WHERE has_stock.stockName = stock.name AND accountNumber = ?";
 		try {
 			Connection connection = DriverManager.getConnection("jdbc:mysql://" + serverName + ":" + portNumber + "/" + dbName, userName, password);
 			PreparedStatement pStatement = connection.prepareStatement(selectQuery);
