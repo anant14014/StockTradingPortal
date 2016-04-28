@@ -30,7 +30,7 @@ public class QueryHomeController {
 		mainApp.showAccountsFilter();
 	}
 	public void handleUsers() {
-		mainApp.showUsersFilter();
+		mainApp.showUserHome();
 	}
 	
 	public void handleListings() {

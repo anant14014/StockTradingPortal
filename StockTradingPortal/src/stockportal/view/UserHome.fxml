@@ -13,13 +13,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="stockportal.view.StockHomeController">
+<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="stockportal.view.UserHomeController">
    <children>
       <SplitPane dividerPositions="0.25301204819277107" layoutX="170.0" layoutY="150.0" orientation="VERTICAL" prefHeight="500.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Text layoutX="222.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Stocks" textAlignment="CENTER" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="222.0" AnchorPane.rightAnchor="221.5703125" AnchorPane.topAnchor="44.0">
+                  <Text layoutX="233.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Users" textAlignment="CENTER" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="233.0" AnchorPane.rightAnchor="233.328125" AnchorPane.topAnchor="44.0">
                      <font>
                         <Font size="48.0" />
                      </font>

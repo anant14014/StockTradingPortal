@@ -78,7 +78,7 @@ public class UsersFilterController {
 	}
 	
 	public void handleBack() {
-		mainApp.showQueryHome();
+		mainApp.showUserHome();
 	}
 	
 	

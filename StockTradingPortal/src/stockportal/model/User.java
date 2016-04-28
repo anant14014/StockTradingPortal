@@ -105,6 +105,24 @@ public class User extends SQLObject{
 	   return users;
 	}
 	
+	public static ObservableList<User> findByNameAndID(String name, int id) throws SQLException {
+		ObservableList<User> users = FXCollections.observableArrayList();
+		String selectQuery = "SELECT * FROM customer WHERE name = ? AND customerID = ?";
+		try {
+			Connection connection = DriverManager.getConnection("jdbc:mysql://" + serverName + ":" + portNumber + "/" + dbName, userName, password);
+			PreparedStatement pStatement = connection.prepareStatement(selectQuery);
+			pStatement.setString(1, name);
+			pStatement.setInt(2, id);
+		    ResultSet resultSet = pStatement.executeQuery();
+		    while (resultSet.next()) {
+		    	users.add(createUser(resultSet));
+		    }
+		} catch (SQLException sqlex) {
+	      throw sqlex;
+	   }
+	   return users;
+	}
+	
 	public static ObservableList<User> findByEmail(String email) throws SQLException {
 		ObservableList<User> users = FXCollections.observableArrayList();
 		String selectQuery = "SELECT * FROM customer WHERE email LIKE ?";
@@ -138,6 +156,27 @@ public class User extends SQLObject{
 	      throw sqlex;
 	   }
 	   return users;
+	}
+	
+	public static int AddUser(String name, String mobile, String email, String dob, int id, String pass) throws SQLException {
+		int numRowsChanged;
+		ObservableList<Stock> users = FXCollections.observableArrayList();
+		String selectQuery = "INSERT INTO customer VALUES(?, ?, ?, ?, ?, ?)";
+		try {
+			Connection connection = DriverManager.getConnection("jdbc:mysql://" + serverName + ":" + portNumber + "/" + dbName, userName, password);
+			PreparedStatement pStatement = connection.prepareStatement(selectQuery);
+			pStatement.setInt(1, id);
+			pStatement.setString(2, pass);
+			pStatement.setString(3, name);
+			pStatement.setString(4,  dob);
+			pStatement.setString(5, email);
+			pStatement.setString(6, mobile);
+		    numRowsChanged = pStatement.executeUpdate();
+		    
+		} catch (SQLException sqlex) {
+	      throw sqlex;
+	   }
+	   return numRowsChanged;
 	}
 
 	private static User createUser(ResultSet resultSet) throws SQLException {
