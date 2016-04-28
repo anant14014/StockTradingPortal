@@ -51,7 +51,7 @@ public class AccountsFilterController {
 		
 		int sum = 0;
 		if (!accountNumber.isEmpty()) {
-			accounts.add(Account.findByAccountNumber(Integer.parseInt(accountNumber)));
+			accounts = Account.findByAccountNumber(Integer.parseInt(accountNumber));
 			sum++;
 		}
 		if (!type.isEmpty()) {
