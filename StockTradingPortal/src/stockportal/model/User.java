@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Random;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -160,8 +161,12 @@ public class User extends SQLObject{
 	
 	public static int AddUser(String name, String mobile, String email, String dob, int id, String pass) throws SQLException {
 		int numRowsChanged;
+		int numRowsChanged1;
 		ObservableList<Stock> users = FXCollections.observableArrayList();
 		String selectQuery = "INSERT INTO customer VALUES(?, ?, ?, ?, ?, ?)";
+		String selectQuery1  = "INSERT INTO account VALUES(?, ?, ?, ?)";
+		Random rn = new Random();
+		int accno = rn.nextInt(1000000) + 1;
 		try {
 			Connection connection = DriverManager.getConnection("jdbc:mysql://" + serverName + ":" + portNumber + "/" + dbName, userName, password);
 			PreparedStatement pStatement = connection.prepareStatement(selectQuery);
@@ -171,7 +176,13 @@ public class User extends SQLObject{
 			pStatement.setString(4,  dob);
 			pStatement.setString(5, email);
 			pStatement.setString(6, mobile);
+			PreparedStatement pStatement1 = connection.prepareStatement(selectQuery1);
+			pStatement1.setInt(1, accno);
+			pStatement1.setString(2, "trading");
+			pStatement1.setInt(3, 1000);
+			pStatement1.setInt(4, id);
 		    numRowsChanged = pStatement.executeUpdate();
+		    numRowsChanged1 = pStatement1.executeUpdate();
 		    
 		} catch (SQLException sqlex) {
 	      throw sqlex;
